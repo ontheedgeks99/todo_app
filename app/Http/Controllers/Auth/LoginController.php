@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -19,14 +20,26 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    // use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        // logoutというメソッドを、doLogoutというメソッド名に変更して継承する
+        logout as doLogout;
+    }
+
+    public function logout(Request $request){
+        // 1.元々のログアウト処理を実行する
+        $this->doLogout($request);
+        // 2.リダイレクト先を独自に設定する
+        return redirect('/login');
+    }
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/todos';
 
     /**
      * Create a new controller instance.

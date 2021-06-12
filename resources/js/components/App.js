@@ -14,18 +14,7 @@ class App extends React.Component{
         this.getTodo();
     }
 
-    componentDidlMount(){           
-            axios
-              .get('/gettodo')
-              .then(results => {
-                const data = results.data;
-                this.setState({
-                  todo: data
-                });
-              });
-    }
-
-    getTodo(){            
+    getTodo(){           
         axios
           .get('/gettodo')
           .then(results => {
@@ -34,7 +23,7 @@ class App extends React.Component{
               todo: data
             });
           });
-}
+    }
 
     /**
      * クエリを実行し、todoを追加
@@ -42,16 +31,16 @@ class App extends React.Component{
      */
     addTodo = (todoname) => {
             
-            axios
-              .post('/api/todos_create',{
-                  todoname: todoname
-                }).then(results => {
-                    const data = results.data;
-                    this.setState({
-                      todo: data
-                    });
-                })
-                .catch(e => this.setState({error:e.response.data.errors}));
+        axios
+          .post('/todos_create',{
+            todoname: todoname
+            }).then(results => {
+              const data = results.data;
+              this.setState({
+                todo: data
+              });
+            })
+          .catch(e => this.setState({error:e.response.data.errors}));
 
     }
     /**
@@ -61,7 +50,7 @@ class App extends React.Component{
      UpdateStatus = (id) => {
 
         axios
-        .post('/api/todos_status',{
+        .post('/todos_status',{
             todo_id: id
           })
           .then(results => {
@@ -78,7 +67,7 @@ class App extends React.Component{
      Delete = (id) => {
 
         axios
-        .post('/api/todos_delete',{
+        .post('/todos_delete',{
             todo_id: id
           })
           .then(results => {

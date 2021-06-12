@@ -14,7 +14,7 @@ use App\Http\Controllers\TodosController;
 |
 */
 
-Route::get('/todos', [TodosController::class,'index']);
+Route::get('/todo', [TodosController::class,'index']);
 
 Route::get('/gettodo', [TodosController::class,'getTodo']);
 
@@ -23,11 +23,6 @@ Route::post('/todos_create', [TodosController::class,'create']);
 Route::post('/todos_delete', [TodosController::class,'delete']);
 
 Route::post('/todos_status', [TodosController::class,'status']);
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

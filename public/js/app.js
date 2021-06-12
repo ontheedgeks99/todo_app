@@ -1915,7 +1915,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "addTodo", function (todoname) {
-      axios.post('/api/todos_create', {
+      axios.post('/todos_create', {
         todoname: todoname
       }).then(function (results) {
         var data = results.data;
@@ -1931,7 +1931,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "UpdateStatus", function (id) {
-      axios.post('/api/todos_status', {
+      axios.post('/todos_status', {
         todo_id: id
       }).then(function (results) {
         var data = results.data;
@@ -1943,7 +1943,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "Delete", function (id) {
-      axios.post('/api/todos_delete', {
+      axios.post('/todos_delete', {
         todo_id: id
       }).then(function (results) {
         var data = results.data;
@@ -1971,27 +1971,14 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: "componentDidlMount",
-    value: function componentDidlMount() {
+    key: "getTodo",
+    value: function getTodo() {
       var _this2 = this;
 
       axios.get('/gettodo').then(function (results) {
         var data = results.data;
 
         _this2.setState({
-          todo: data
-        });
-      });
-    }
-  }, {
-    key: "getTodo",
-    value: function getTodo() {
-      var _this3 = this;
-
-      axios.get('/gettodo').then(function (results) {
-        var data = results.data;
-
-        _this3.setState({
           todo: data
         });
       });

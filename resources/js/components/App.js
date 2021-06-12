@@ -11,10 +11,10 @@ class App extends React.Component{
             todo:[],
             error:false,
         };
+        this.getTodo();
     }
 
-    componentDidlMount(){
-            
+    componentDidlMount(){           
             axios
               .get('/gettodo')
               .then(results => {
@@ -25,6 +25,17 @@ class App extends React.Component{
               });
     }
 
+    getTodo(){            
+        axios
+          .get('/gettodo')
+          .then(results => {
+            const data = results.data;
+            this.setState({
+              todo: data
+            });
+          });
+}
+
     /**
      * クエリを実行し、todoを追加
      * @param todoname 
@@ -34,10 +45,13 @@ class App extends React.Component{
             axios
               .post('/api/todos_create',{
                   todoname: todoname
+                }).then(results => {
+                    const data = results.data;
+                    this.setState({
+                      todo: data
+                    });
                 })
                 .catch(e => this.setState({error:e.response.data.errors}));
-    
-                getTodo()
 
     }
     /**
@@ -50,7 +64,12 @@ class App extends React.Component{
         .post('/api/todos_status',{
             todo_id: id
           })
-          getTodo()
+          .then(results => {
+            const data = results.data;
+            this.setState({
+              todo: data
+            });
+          });
     }
     /**
      * クエリを実行しtodoの削除
@@ -62,7 +81,12 @@ class App extends React.Component{
         .post('/api/todos_delete',{
             todo_id: id
           })
-          getTodo()
+          .then(results => {
+            const data = results.data;
+            this.setState({
+              todo: data
+            });
+          });
 
     }
     /**

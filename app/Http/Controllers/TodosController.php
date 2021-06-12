@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\TodosRequest;
-use App\Models\Todos\todo;
+use App\Models\Todos\Todo;
 
 class TodosController extends Controller
 {
@@ -19,14 +19,14 @@ class TodosController extends Controller
         $user_id = \Auth::user()->user_id;
 
         // user_idからtodoを取得
-        return todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
 
     }
 
     public function create(TodosRequest $request){
 
         // todoモデルを利用してからのtodoオブジェクトを作成
-        $todo = new todo;
+        $todo = new Todo;
 
         $user_id = \Auth::user()->user_id;
         
@@ -39,16 +39,16 @@ class TodosController extends Controller
         // todosテーブルにINSERT
         $todo->save();
 
-        return todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
     }
 
     public function delete(TodosRequest $request){
         
         // todoモデルを利用して空のtodoオブジェクトを作成
-        $todo = new todo;
+        $todo = new Todo;
 
         // todo_idでSELECT
-        $todo = todo::find($request->todo_id);
+        $todo = Todo::find($request->todo_id);
         
         // DELETE処理
         $todo->delete();
@@ -56,16 +56,16 @@ class TodosController extends Controller
         // 認証機能を利用してuser_idの取得
         $user_id = \Auth::user()->user_id;
         
-        return todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
     }
 
     public function status(TodosRequest $request){
 
         // todoモデルを利用して空のtodoオブジェクトを作成
-        $todo = new todo;
+        $todo = new Todo;
         
         // todo_idでSELECT
-        $todo = todo::find($request->todo_id);
+        $todo = Todo::find($request->todo_id);
 
         $status = $todo->status;
         
@@ -82,7 +82,7 @@ class TodosController extends Controller
         // 認証機能を利用してuser_idの取得
         $user_id = \Auth::user()->user_id;
         
-        return todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
     }
 
     public function __construct(){

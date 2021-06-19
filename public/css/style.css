@@ -11,6 +11,10 @@
   margin: 0 auto;
 }
 
+.todo-content {
+  display: flex;
+}
+
 .task-list {
   list-style: none;
   margin: 0;
@@ -19,16 +23,16 @@
 }
 
 .task-list li {
+  /* display: flex; */
   padding: 20px 10px;
   border-bottom: 1px solid #d7d2cd;
-  display: flex;
   align-items: center;
   position: relative;
 }
 
 .task-list li label {
   width: calc(100% - 100px);
-  display: block;
+  display: flex;
   cursor: pointer;
 }
 
@@ -39,7 +43,6 @@
 .task-list li .btn {
   width: 80px;
   position: absolute;
-  right: 10px;
   padding: 0.4em 1em;
   font-size: 13px;
 }
@@ -109,19 +112,33 @@
 .btn.is-delete {
   background-color: #d86681;
   border-bottom-color: #956270;
+  right: 10px;
+}
+
+.btn.is-edit {
+  border-bottom-color: #717171;
+  right: 100px;
+}
+
+.btn.is-update {
+  border-bottom-color: #627295;
+  right: 100px;
 }
 
 .checkbox-input {
-  display: none;
+  /* display: none; */
+  width: 18px;
+  height: 18px;
 }
 
 .checkbox-label {
-  padding-left: 30px;
-  position: relative;
-  margin-right: 20px;
+  /* position: relative; */
+  margin-left: 20px;
+  margin-right: 10px;
+  width: 50%;
 }
 
-.checkbox-label::before {
+/* .checkbox-label::before {
   content: "";
   display: block;
   position: absolute;
@@ -131,13 +148,13 @@
   height: 18px;
   border: 1px solid #d7d2cd;
   border-radius: 4px;
-}
+} */
 
 .checkbox-input:checked + .checkbox-label {
   color: #999;
 }
 
-.checkbox-input:checked + .checkbox-label::after {
+/* .checkbox-input:checked + .checkbox-label::after {
   content: "";
   display: block;
   position: absolute;
@@ -148,4 +165,4 @@
   transform: rotate(40deg);
   border-bottom: 3px solid #d01137;
   border-right: 3px solid #d01137;
-}
+} */

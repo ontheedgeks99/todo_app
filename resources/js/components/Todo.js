@@ -21,31 +21,30 @@ class Todo extends React.Component {
         }
     }
 
+    handleChangeEdit = (id) => {
+        this.props.onChangeEdit(id);
+    }
+
     render(){
         return(
-            <div className="inner">
-                <ul className="task-list">
-                    {this.props.todo.map((value) => (
-                        <li key={value.todo_id}>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    class="checkbox-input" 
-                                    checked={
-                                        value.status ? (
-                                            true
-                                        ):(
-                                            false
-                                        )
-                                    }
-                                    onChange={() => {this.handleChangeCompleted(value.todo_id)}}
-                                />
-                                <span className="checkbox-label">{value.todoname}</span>
-                            </label>
-                            <button className="btn is-delete" onClick={ () => {this.handleClickDelete(value.todo_id)}} >削除</button>
-                        </li>
-                    ))}
-                </ul>
+            <div className="todo-content">
+                <label>
+                    <input 
+                        type="checkbox" 
+                        className="checkbox-input" 
+                        checked={
+                        this.props.status ? (
+                            true
+                        ):(
+                            false
+                        )
+                        }
+                        onChange={() => {this.handleChangeCompleted(this.props.todo_id)}}
+                    />
+                    <span className="checkbox-label">{this.props.todoname}</span>
+                </label>
+                <button className="btn is-edit bg-secondary" onClick={ () => {this.handleChangeEdit(this.props.todo_id)}}>編集</button>
+                <button className="btn is-delete" onClick={ () => {this.handleClickDelete(this.props.todo_id)}} >削除</button>
             </div>
         );
     }

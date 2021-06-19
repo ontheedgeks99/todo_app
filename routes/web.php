@@ -24,6 +24,10 @@ Route::post('/todos_delete', [TodosController::class,'delete']);
 
 Route::post('/todos_status', [TodosController::class,'status']);
 
+Route::post('/todoname_edit', [TodosController::class,'edit']);
+
+Route::post('/update_edit', [TodosController::class,'update_edit']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

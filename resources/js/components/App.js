@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Form from './Form';
 import Todo from './Todo';
+import Edit from './Edit';
 
 class App extends React.Component{
     constructor(props){
@@ -86,6 +87,40 @@ class App extends React.Component{
         this.setState({error: false});
     }
 
+    /**
+     * todonameの更新
+     * @param todoname
+     */
+     UpdateTodoname = (todoname,todo_id) => {
+      axios
+        .post('/todoname_edit',{
+            todo_id: todo_id,
+            todoname: todoname,
+          })
+          .then(results => {
+            const data = results.data;
+            this.setState({
+              todo: data
+            });
+          });
+    }
+    /**
+     * editのステータスを変更
+     * @param todo_id
+     */
+    UpdateEdit = (todo_id) => {
+      axios
+        .post('/update_edit',{
+            todo_id: todo_id,
+          })
+          .then(results => {
+            const data = results.data;
+            this.setState({
+              todo: data
+            });
+          });
+    }
+
     render(){
         return(
             <div>
@@ -95,11 +130,36 @@ class App extends React.Component{
                     onCancel={this.Cancelerror}
                 />
                 
-                <Todo 
-                    todo={this.state.todo}
-                    onChangeStatus={this.UpdateStatus} 
-                    onClick={this.Delete}
-                />
+                <div className="inner">
+                    <ul className="task-list">
+                        {this.state.todo.map((value) => (
+                            <li key={value.todo_id}>
+
+                                { value.edit ? (
+                                    <Edit
+                                    todo_id={value.todo_id} 
+                                    todoname={value.todoname}
+                                    status={value.status}
+                                    onChangeStatus={this.UpdateStatus} 
+                                    onChangeTodoname={this.UpdateTodoname}
+                                    onChangeEdit={this.UpdateEdit}
+                                    />
+
+                                ):(
+                                    <Todo
+                                    todo_id={value.todo_id} 
+                                    todoname={value.todoname}
+                                    status={value.status}
+                                    onChangeStatus={this.UpdateStatus} 
+                                    onClick={this.Delete}
+                                    onChangeEdit={this.UpdateEdit}
+                                    />
+                                )}
+                                
+                            </li>
+                        ))}
+                    </ul>
+                </div> 
             </div>
         );
     }

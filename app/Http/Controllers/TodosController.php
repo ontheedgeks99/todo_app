@@ -85,6 +85,63 @@ class TodosController extends Controller
         return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
     }
 
+    public function edit(TodosRequest $request){
+
+        // todoモデルを利用して空のtodoオブジェクトを作成
+        $todo = new Todo;
+        
+        // todo_idでSELECT
+        $todo = Todo::find($request->todo_id);
+
+        // フォームから送られてきた値でtodonameを設定
+        $todo->todoname = $request->todoname;
+
+        $edit = $todo->edit;
+        
+        if((int)$edit === 0){
+            $edit = 1;
+        } else {
+            $edit = 0;
+        }
+
+        $todo->edit = $edit;
+
+        // UPDATE処理
+        $todo->save();
+
+        // 認証機能を利用してuser_idの取得
+        $user_id = \Auth::user()->user_id;
+        
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+    }
+    
+    public function update_edit(TodosRequest $request){
+
+        // todoモデルを利用して空のtodoオブジェクトを作成
+        $todo = new Todo;
+        
+        // todo_idでSELECT
+        $todo = Todo::find($request->todo_id);
+
+        $edit = $todo->edit;
+        
+        if((int)$edit === 0){
+            $edit = 1;
+        } else {
+            $edit = 0;
+        }
+
+        $todo->edit = $edit;
+
+        // UPDATE処理
+        $todo->save();
+
+        // 認証機能を利用してuser_idの取得
+        $user_id = \Auth::user()->user_id;
+        
+        return Todo::orderBy('todo_id', 'desc')->where('user_id', $user_id)->get()->toJson();
+    }
+
     public function __construct(){
         $this->middleware('auth');
     }
